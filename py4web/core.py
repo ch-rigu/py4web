@@ -1016,6 +1016,9 @@ def URL(  # pylint: disable=invalid-name
         or request.environ.get("HTTP_X_SCRIPT_NAME", "")
     ).rstrip("/")
     if not parts:
+        # request.path is WSGI PATH_INFO, which never carries SCRIPT_NAME, so a
+        # self-referential URL(vars=...) behind a reverse-proxy prefix must have
+        # script_name prepended (done below) to produce a correct external URL.
         prefix = request.path
         # When the caller explicitly opted out of the app prefix, strip it
         # from the current path; otherwise URL(use_appname=False) would
@@ -1026,6 +1029,7 @@ def URL(  # pylint: disable=invalid-name
                 prefix = "/"
             elif prefix.startswith(app_segment + "/"):
                 prefix = prefix[len(app_segment):]
+        prefix = script_name + prefix
     elif parts and parts[0].startswith("/"):
         prefix = ""
     elif has_appname and app_name != "_default":

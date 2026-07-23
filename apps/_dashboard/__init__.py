@@ -88,6 +88,12 @@ if MODE in ("demo", "readonly", "full"):
             languages=dumps(getattr(T.local, "language", {})),
             mode=MODE,
             user_id=(session.get("user") or {}).get("id"),
+            # reverse-proxy prefix so client-rendered route links (Vue) point at
+            # the externally-visible path, not the raw registered rule
+            script_prefix=(
+                request.environ.get("SCRIPT_NAME", "")
+                or request.environ.get("HTTP_X_SCRIPT_NAME", "")
+            ).rstrip("/"),
         )
 
     @action("login", method="POST")

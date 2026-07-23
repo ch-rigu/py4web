@@ -34,6 +34,7 @@ const app = Vue.createApp({
     return {
       password: '',
       user: USER_ID,
+      script_prefix: SCRIPT_PREFIX,
       loading: true,
       message: 'test',
       info: [],

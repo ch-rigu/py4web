@@ -113,7 +113,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="route in routes[selected_app.name]" :key="route.rule">
-                                        <td><a :href="route.rule" target="_blank"><tt>{{route.rule}}</tt></a></td>
+                                        <td><a :href="script_prefix + route.rule" target="_blank"><tt>{{route.rule}}</tt></a></td>
                                         <td><tt>{{route.method}}</tt></td>
                                         <td><a @click="select_filename(route.filename)"><tt>{{route.filename}}</tt></a></td>
                                         <td><tt>{{route.action}}</tt></td>
@@ -303,6 +303,7 @@
     <script src="js/utils.js"></script>
     <script>
       var USER_ID = Number('[[= user_id or 0 ]]');
+      var SCRIPT_PREFIX = '[[= script_prefix ]]';
     </script>
     <script>
       T.languages = JSON.parse('[[= languages ]]');
