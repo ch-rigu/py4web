@@ -820,6 +820,12 @@ To enable passkey login (Touch ID, Face ID, Windows Hello, hardware security key
 .. note::
    The site must be served over HTTPS with a certificate the browser trusts. WebAuthn will not run over plain HTTP (except on ``localhost`` during development).
 
+Install webauth dependencies
+
+.. code:: python
+   pip install webauthn
+
+   
 settings.py
 -----------
 
